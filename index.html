@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para o Meu Amor ❤️</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #050508;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+            color: #ffffff;
+        }
+
+        .font-romantic {
+            font-family: 'Dancing Script', cursive;
+        }
+
+        /* Animação do Coração Batendo */
+        @keyframes heartbeat {
+            0% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 15px rgba(244, 63, 94, 0.6));
+            }
+            14% {
+                transform: scale(1.18);
+                filter: drop-shadow(0 0 30px rgba(244, 63, 94, 0.9));
+            }
+            28% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 15px rgba(244, 63, 94, 0.6));
+            }
+            42% {
+                transform: scale(1.12);
+                filter: drop-shadow(0 0 25px rgba(244, 63, 94, 0.8));
+            }
+            70% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 15px rgba(244, 63, 94, 0.6));
+            }
+        }
+
+        .beating-heart {
+            animation: heartbeat 1.4s infinite ease-in-out;
+            transform-origin: center;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .beating-heart:hover {
+            animation-play-state: paused;
+            transform: scale(1.25);
+            filter: drop-shadow(0 0 40px rgba(244, 63, 94, 1));
+        }
+
+        /* Efeitos Neon e Gradientes */
+        .glow-text {
+            text-shadow: 0 0 10px rgba(244, 63, 94, 0.5),
+                         0 0 20px rgba(244, 63, 94, 0.3),
+                         0 0 40px rgba(225, 29, 72, 0.3);
+        }
+
+        .glass-card {
+            background: rgba(18, 18, 26, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(244, 63, 94, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        /* Canvas de Partículas */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Transição Suave Modal */
+        .modal-enter {
+            opacity: 0;
+            transform: scale(0.9) translateY(20px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .modal-active {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050508;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #27272a;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #e11d48;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between items-center relative px-4 py-8 select-none">
+
+    <!-- Canvas para Partículas e Estrelas -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Conteúdo Principal -->
+    <main class="z-10 w-full max-w-2xl mx-auto text-center flex flex-col items-center my-auto">
+        
+        <!-- Cabeçalho com Nome / Mensagem Principal -->
+        <div class="space-y-3 mb-8">
+            <span class="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest text-rose-300 bg-rose-950/40 border border-rose-800/40 uppercase">
+                Para o amor da minha vida ❤️
+            </span>
+            <h1 class="text-5xl md:text-7xl font-bold font-romantic text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-pink-300 to-rose-500 glow-text leading-tight py-1">
+                Eu Te Amo!
+            </h1>
+            <p class="text-zinc-400 text-sm md:text-base font-light max-w-md mx-auto">
+                Você ilumina o meu mundo todos os dias. Toque no coração abaixo para sentir o meu carinho por você.
+            </p>
+        </div>
+
+        <!-- Coração Central SVG Animado -->
+        <div class="relative my-6 flex items-center justify-center">
+            <!-- Brilho de Fundo -->
+            <div class="absolute w-48 h-48 bg-rose-600/20 rounded-full blur-3xl pointer-events-none"></div>
+
+            <svg id="main-heart" class="w-40 h-40 md:w-52 md:h-52 beating-heart relative z-10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="heartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#fb7185" />
+                        <stop offset="50%" stop-color="#e11d48" />
+                        <stop offset="100%" stop-color="#9f1239" />
+                    </linearGradient>
+                    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                        <feGaussianBlur stdDeviation="2" result="blur" />
+                        <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                    </filter>
+                </defs>
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" 
+                      fill="url(#heartGradient)" filter="url(#glow)"/>
+            </svg>
+        </div>
+
+        <!-- Botões de Ação Interativos -->
+        <div class="mt-8 flex flex-wrap justify-center gap-4 w-full max-w-md">
+            <button onclick="showSurprise('card')" class="flex-1 min-w-[140px] px-6 py-3.5 rounded-full glass-card hover:border-rose-500/60 text-rose-200 font-medium text-sm transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg flex items-center justify-center gap-2 group">
+                <i class="fa-solid fa-envelope text-rose-400 group-hover:rotate-12 transition-transform"></i>
+                <span>Carta de Amor</span>
+            </button>
+
+            <button onclick="showSurprise('reasons')" class="flex-1 min-w-[140px] px-6 py-3.5 rounded-full glass-card hover:border-rose-500/60 text-rose-200 font-medium text-sm transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg flex items-center justify-center gap-2 group">
+                <i class="fa-solid fa-sparkles text-rose-400 group-hover:scale-125 transition-transform"></i>
+                <span>Por Que Te Amo?</span>
+            </button>
+        </div>
+
+        <!-- Contador de Dias / Detalhe Romântico Espacial -->
+        <div class="mt-8 px-6 py-3 rounded-full bg-zinc-900/60 border border-zinc-800/80 text-zinc-400 text-xs flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
+            <span id="love-status">Meu amor por você cresce a cada segundo ✨</span>
+        </div>
+
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="z-10 text-center py-4 text-xs text-zinc-600">
+        Feito especialmente para você ❤️
+    </footer>
+
+    <!-- Modal para Exibir Surpresas -->
+    <div id="modal-overlay" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div id="modal-card" class="glass-card w-full max-w-lg rounded-3xl p-6 md:p-8 relative modal-enter text-left">
+            <!-- Botão Fechar -->
+            <button onclick="closeModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-zinc-800/80 hover:bg-rose-900/50 text-zinc-400 hover:text-white flex items-center justify-center transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- Conteúdo da Carta de Amor -->
+            <div id="content-card" class="hidden space-y-4">
+                <div class="flex items-center gap-3 border-b border-zinc-800 pb-3">
+                    <i class="fa-solid fa-heart text-rose-500 text-xl"></i>
+                    <h3 class="text-2xl font-romantic font-bold text-rose-300">Minha Carta Para Você</h3>
+                </div>
+                <div class="text-zinc-300 text-sm md:text-base leading-relaxed space-y-3 font-light max-h-[60vh] overflow-y-auto pr-2">
+                    <p>Meu amor,</p>
+                    <p>Saiba que você vem se tornando uma pessoa muito especial pra mim e que vou te querer pra sempre.</p>
+                    <p>Você é uma pessoa muito incrivel e quero que voce sempre saiba disso.</p>
+                    <p>Eu te amo muito muitãooooo ❤️</p>
+                </div>
+            </div>
+
+            <!-- Conteúdo dos Motivos -->
+            <div id="content-reasons" class="hidden space-y-4">
+                <div class="flex items-center gap-3 border-b border-zinc-800 pb-3">
+                    <i class="fa-solid fa-star text-rose-500 text-xl"></i>
+                    <h3 class="text-2xl font-romantic font-bold text-rose-300">Motivos Pelos Quais Te Amo</h3>
+                </div>
+                <ul class="text-zinc-300 text-sm md:text-base space-y-3 font-light max-h-[60vh] overflow-y-auto pr-2">
+                    <li class="flex items-start gap-3 bg-zinc-900/40 p-3 rounded-xl border border-zinc-800/50">
+                        <span class="text-rose-400 text-base">01.</span>
+                        <span>O seu jeito comigo que eu gosto muito</span>
+                    </li>
+                    <li class="flex items-start gap-3 bg-zinc-900/40 p-3 rounded-xl border border-zinc-800/50">
+                        <span class="text-rose-400 text-base">02.</span>
+                        <span>Você todinha.</span>
+                    </li>
+                    <li class="flex items-start gap-3 bg-zinc-900/40 p-3 rounded-xl border border-zinc-800/50">
+                        <span class="text-rose-400 text-base">03.</span>
+                        <span>Gosto muito de estar com você.</span>
+                    </li>
+                    <li class="flex items-start gap-3 bg-zinc-900/40 p-3 rounded-xl border border-zinc-800/50">
+                        <span class="text-rose-400 text-base">04.</span>
+                        <span>Amo seu sorriso, seus olhos, seu cabelo e tudo em você, (e amo os seus P).</span>
+                    </li>
+                    <li class="flex items-start gap-3 bg-zinc-900/40 p-3 rounded-xl border border-zinc-800/50">
+                        <span class="text-rose-400 text-base">05.</span>
+                        <span>Simplesmente por você ser a pessoa mais incrível que já conheci</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Botão de Fechar no Rodapé do Modal -->
+            <div class="mt-6 pt-3 border-t border-zinc-800/60 flex justify-end">
+                <button onclick="closeModal()" class="px-5 py-2 rounded-full bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold transition-colors">
+                    Guardar no Coração
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script de Animação de Partículas e Lógica -->
+    <script>
+        // Configuração do Canvas de Partículas
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let particles = [];
+        const particleCount = 60;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // Classe das Partículas (Estrelas e Corações Flutuantes)
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height + canvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speedY = Math.random() * 0.8 + 0.3;
+                this.speedX = (Math.random() - 0.5) * 0.4;
+                this.opacity = Math.random() * 0.7 + 0.3;
+                this.isHeart = Math.random() > 0.6; // 40% de chance de ser coração
+                this.color = `hsla(${Math.random() * 20 + 340}, 85%, 65%, ${this.opacity})`;
+            }
+
+            update() {
+                this.y -= this.speedY;
+                this.x += this.speedX;
+
+                if (this.y < -20) {
+                    this.reset();
+                    this.y = canvas.height + 20;
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = 'rgba(244, 63, 94, 0.5)';
+
+                if (this.isHeart) {
+                    // Desenha mini coração
+                    ctx.beginPath();
+                    const topCurveHeight = this.size * 0.3;
+                    ctx.moveTo(this.x, this.y + topCurveHeight);
+                    ctx.bezierCurveTo(this.x, this.y, this.x - this.size / 2, this.y, this.x - this.size / 2, this.y + topCurveHeight);
+                    ctx.bezierCurveTo(this.x - this.size / 2, this.y + (this.size + topCurveHeight) / 2, this.x, this.y + this.size, this.x, this.y + this.size);
+                    ctx.bezierCurveTo(this.x, this.y + this.size, this.x + this.size / 2, this.y + (this.size + topCurveHeight) / 2, this.x + this.size / 2, this.y + topCurveHeight);
+                    ctx.bezierCurveTo(this.x + this.size / 2, this.y, this.x, this.y, this.x, this.y + topCurveHeight);
+                    ctx.closePath();
+                    ctx.fill();
+                } else {
+                    // Desenha brilho/estrela simples
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size / 2, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                ctx.restore();
+            }
+        }
+
+        // Inicializa partículas
+        for (let i = 0; i < particleCount; i++) {
+            const p = new Particle();
+            p.y = Math.random() * canvas.height; // Espalha no início
+            particles.push(p);
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
+        animateParticles();
+
+        // Clique no Coração Central: Efeito de Explosão de Corações
+        const mainHeart = document.getElementById('main-heart');
+        mainHeart.addEventListener('click', (e) => {
+            createHeartExplosion(e.clientX, e.clientY);
+        });
+
+        function createHeartExplosion(x, y) {
+            for (let i = 0; i < 15; i++) {
+                const miniHeart = document.createElement('div');
+                miniHeart.innerHTML = '❤️';
+                miniHeart.style.position = 'fixed';
+                miniHeart.style.left = `${x}px`;
+                miniHeart.style.top = `${y}px`;
+                miniHeart.style.fontSize = `${Math.random() * 20 + 12}px`;
+                miniHeart.style.pointerEvents = 'none';
+                miniHeart.style.zIndex = '100';
+                miniHeart.style.transition = 'all 1s cubic-bezier(0.1, 1, 0.1, 1)';
+                
+                document.body.appendChild(miniHeart);
+
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 120 + 40;
+                const destX = x + Math.cos(angle) * distance;
+                const destY = y + Math.sin(angle) * distance;
+
+                requestAnimationFrame(() => {
+                    miniHeart.style.transform = `translate(${destX - x}px, ${destY - y}px) scale(0)`;
+                    miniHeart.style.opacity = '0';
+                });
+
+                setTimeout(() => {
+                    miniHeart.remove();
+                }, 1000);
+            }
+        }
+
+        // Gerenciamento dos Modais de Surpresa
+        const overlay = document.getElementById('modal-overlay');
+        const card = document.getElementById('modal-card');
+        const contentCard = document.getElementById('content-card');
+        const contentReasons = document.getElementById('content-reasons');
+
+        function showSurprise(type) {
+            // Limpa visibilidade anterior
+            contentCard.classList.add('hidden');
+            contentReasons.classList.add('hidden');
+
+            if (type === 'card') {
+                contentCard.classList.remove('hidden');
+            } else if (type === 'reasons') {
+                contentReasons.classList.remove('hidden');
+            }
+
+            overlay.classList.remove('pointer-events-none');
+            overlay.classList.remove('opacity-0');
+            card.classList.add('modal-active');
+        }
+
+        function closeModal() {
+            overlay.classList.add('opacity-0');
+            overlay.classList.add('pointer-events-none');
+            card.classList.remove('modal-active');
+        }
+
+        // Fechar modal ao clicar fora do card
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
